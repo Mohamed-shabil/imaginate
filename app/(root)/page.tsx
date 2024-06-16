@@ -1,4 +1,5 @@
 import Slider from "@/components/Slider";
+import Upload from "@/components/Upload";
 import AnimatedGradientText from "@/components/ui/animationGradientText";
 import RetroGrid from "@/components/ui/retro-grid";
 import { cn } from "@/lib/utils";
@@ -26,6 +27,7 @@ export default function Home() {
             <div className="mb-5">
                 <Slider />
             </div>
+            <Upload />
         </main>
     );
 }

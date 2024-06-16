@@ -1,6 +1,6 @@
 import Link from "next/link";
 import React from "react";
-
+import { UserButton } from "@clerk/nextjs";
 function Navbar() {
     return (
         <nav className="hidden sm:flex w-full h-20 container text-slate-800">
@@ -14,6 +14,7 @@ function Navbar() {
                 <Link href={""} className="font-semibold">
                     Pricing
                 </Link>
+                <UserButton />
             </div>
         </nav>
     );
