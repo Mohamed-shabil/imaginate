@@ -1,7 +1,7 @@
 "use client";
 import Image from "next/image";
 import { useState } from "react";
-import { NeonGradientCard } from "@/components/ui/gradient-card";
+
 function Slider() {
     const [sliderPosition, setSliderPosition] = useState<number>(50);
     const [isDragging, setIsDragging] = useState<boolean>(false);

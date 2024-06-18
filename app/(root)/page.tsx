@@ -2,17 +2,28 @@ import Slider from "@/components/Slider";
 import AnimatedGradientText from "@/components/ui/animationGradientText";
 import RetroGrid from "@/components/ui/retro-grid";
 import { cn } from "@/lib/utils";
-import { ChevronRight } from "lucide-react";
+import { ChevronRight, Divide } from "lucide-react";
 import MediaUploader from "@/components/MediaUploader";
 import { auth } from "@clerk/nextjs/server";
 import { redirect } from "next/navigation";
+import { Button } from "@/components/ui/button";
+import Link from "next/link";
 
 export default function Home() {
     const { userId } = auth();
-    if (!userId) redirect("/sign-in");
+    if (!userId) {
+        return (
+            <div className="flex items-center justify-center">
+                <h2>Please Sign-in to continue</h2>
+                <Link href={"/sign-in"}>
+                    <Button>Sign-in</Button>
+                </Link>
+            </div>
+        );
+    }
 
     return (
-        <main className="container">
+        <section className="container">
             <div className="md:mt-20 mb-5 text-2xl sm:text-3xl md:text-6xl font-bold flex gap-6 flex-col items-center justify-center">
                 <h2 className="text-center py-2 px-4 max-w-3xl">
                     Remove the background from images 100% automatically
@@ -39,6 +50,6 @@ export default function Home() {
                 </h2>
                 <MediaUploader userId={userId} />
             </div>
-        </main>
+        </section>
     );
 }
