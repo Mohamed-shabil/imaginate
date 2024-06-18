@@ -27,39 +27,16 @@ declare type AddImageParams = {
     path: string;
 };
 
-declare type UpdateImageParams = {
-    image: {
-        _id: string;
-        title: string;
-        publicId: string;
-        transformationType: string;
-        width: number;
-        height: number;
-        config: any;
-        secureURL: string;
-        transformationURL: string;
-        aspectRatio: string | undefined;
-        prompt: string | undefined;
-        color: string | undefined;
-    };
-    userId: string;
-    path: string;
-};
-
-declare type Transformations = {
-    restore?: boolean;
-    fillBackground?: boolean;
-    remove?: {
-        prompt: string;
-        removeShadow?: boolean;
-        multiple?: boolean;
-    };
-    recolor?: {
-        prompt?: string;
-        to: string;
-        multiple?: boolean;
-    };
-    removeBackground?: boolean;
+declare type IImage = {
+    publicId: string;
+    secureURL: string;
+    width: number;
+    height: number;
+    config: object;
+    transformationUrl: string;
+    author: string;
+    createdAt: Date;
+    updatedAt: Date;
 };
 
 // ====== TRANSACTION PARAMS

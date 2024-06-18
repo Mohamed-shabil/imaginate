@@ -5,7 +5,6 @@ import { cn } from "@/lib/utils";
 import { ChevronRight, Divide } from "lucide-react";
 import MediaUploader from "@/components/MediaUploader";
 import { auth } from "@clerk/nextjs/server";
-import { redirect } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 

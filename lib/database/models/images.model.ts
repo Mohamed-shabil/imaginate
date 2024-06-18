@@ -1,20 +1,4 @@
-import { Document, Schema, model, models } from "mongoose";
-
-export interface IImage extends Document {
-    publicId: string;
-    secureURL: string;
-    width?: number;
-    height?: number;
-    config?: object;
-    transformationUrl?: string;
-    author: {
-        _id: string;
-        firstName: string;
-        lastName: string;
-    };
-    createdAt?: Date;
-    updatedAt?: Date;
-}
+import { Schema, model, models, InferSchemaType } from "mongoose";
 
 const ImageSchema = new Schema({
     publicId: { type: String, required: true },
@@ -27,7 +11,8 @@ const ImageSchema = new Schema({
     createdAt: { type: Date, default: Date.now },
     updatedAt: { type: Date, default: Date.now },
 });
+type Imagetype = InferSchemaType<typeof ImageSchema>;
 
-const Image = models?.Image || model("Image", ImageSchema);
+const Image = models?.Image || model<Imagetype>("Image", ImageSchema);
 
 export default Image;
