@@ -1,10 +1,16 @@
 import Slider from "@/components/Slider";
-import Upload from "@/components/Upload";
 import AnimatedGradientText from "@/components/ui/animationGradientText";
 import RetroGrid from "@/components/ui/retro-grid";
 import { cn } from "@/lib/utils";
 import { ChevronRight } from "lucide-react";
+import MediaUploader from "@/components/MediaUploader";
+import { auth } from "@clerk/nextjs/server";
+import { redirect } from "next/navigation";
+
 export default function Home() {
+    const { userId } = auth();
+    if (!userId) redirect("/sign-in");
+
     return (
         <main className="container">
             <div className="md:mt-20 mb-5 text-2xl sm:text-3xl md:text-6xl font-bold flex gap-6 flex-col items-center justify-center">
@@ -27,7 +33,12 @@ export default function Home() {
             <div className="mb-5">
                 <Slider />
             </div>
-            <Upload />
+            <div className="h-[80vh] my-20">
+                <h2 className="font-semibold text-center text-2xl mb-10">
+                    Transform your Images
+                </h2>
+                <MediaUploader userId={userId} />
+            </div>
         </main>
     );
 }

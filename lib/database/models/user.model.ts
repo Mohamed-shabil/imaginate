@@ -1,3 +1,4 @@
+import { Images } from "lucide-react";
 import { Schema, models, model } from "mongoose";
 
 const UserSchema = new Schema({
@@ -32,8 +33,9 @@ const UserSchema = new Schema({
     },
     creditBalance: {
         type: Number,
-        default: 10,
+        default: 3,
     },
+    images: [String],
 });
 
 const User = models?.User || model("User", UserSchema);
