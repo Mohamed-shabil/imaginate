@@ -1,4 +1,4 @@
-import { Schema, models, model } from "mongoose";
+import { Schema, models, model, InferSchemaType } from "mongoose";
 const TransactionSchema = new Schema({
     createdAt: {
         type: Date,
@@ -23,7 +23,10 @@ const TransactionSchema = new Schema({
         types: Schema.Types.ObjectId,
     },
 });
+type TransactionType = InferSchemaType<typeof TransactionSchema>;
+
 const Transaction =
-    models?.Transaction || model("Transaction", TransactionSchema);
+    models?.Transaction ||
+    model<TransactionType>("Transaction", TransactionSchema);
 
 export default Transaction;

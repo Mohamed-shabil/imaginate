@@ -10,8 +10,10 @@
   },
   "dependencies": {
     "@clerk/nextjs": "^5.1.0",
+    "@radix-ui/react-alert-dialog": "^1.0.5",
     "@radix-ui/react-slot": "^1.0.2",
     "@radix-ui/react-toast": "^1.1.5",
+    "@stripe/stripe-js": "^4.0.0",
     "class-variance-authority": "^0.7.0",
     "lucide-react": "^0.379.0",
     "mongodb": "^6.7.0",
@@ -20,6 +22,7 @@
     "next-cloudinary": "^6.6.2",
     "react": "^18",
     "react-dom": "^18",
+    "stripe": "^15.12.0",
     "svix": "^1.24.0",
     "tailwind-merge": "^2.3.0",
     "tailwindcss-animate": "^1.0.7"

@@ -2,23 +2,42 @@
 import { CldImage, CldUploadWidget, getCldImageUrl } from "next-cloudinary";
 import { useToast } from "./ui/use-toast";
 import Image from "next/image";
-import { Plus } from "lucide-react";
+import { ImageDown, Plus } from "lucide-react";
 import { dataUrl, download } from "@/lib/utils";
 import { PlaceholderValue } from "next/dist/shared/lib/get-img-props";
 import { useState } from "react";
 import { Button } from "./ui/button";
 import { addImage } from "@/lib/actions/image.actions";
 import { redirect } from "next/navigation";
+import { updateCredits } from "@/lib/actions/user.actions";
+import { creditFee } from "@/constants";
+import {
+    AlertDialog,
+    AlertDialogAction,
+    AlertDialogCancel,
+    AlertDialogContent,
+    AlertDialogDescription,
+    AlertDialogFooter,
+    AlertDialogHeader,
+    AlertDialogTitle,
+    AlertDialogTrigger,
+} from "@/components/ui/alert-dialog";
+import AlertModal from "./AlertModal";
 
-function MediaUploader({ userId }: { userId: string }) {
+function MediaUploader({
+    userId,
+    creditBalance,
+}: {
+    userId: string;
+    creditBalance: number;
+}) {
     const { toast } = useToast();
 
     if (!userId) redirect("/sign-in");
-
     const [image, setImage] = useState<any>(null);
     const [newImage, setNewImage] = useState<any>(null);
     const [transformationConfig, setTransformationConfig] = useState<any>(null);
-
+    const [openModal, setOpenModal] = useState<boolean>(false);
     const downloadHandler = () => {
         download(
             getCldImageUrl({
@@ -56,11 +75,12 @@ function MediaUploader({ userId }: { userId: string }) {
 
         try {
             await addImage({ image: imageData, userId: userId, path: "/" });
+            await updateCredits(userId, creditFee);
             toast({
                 title: "Image uploaded successfully",
                 description: "1 credit was deducted from your account",
                 duration: 5000,
-                className: "success-toast",
+                className: "bg-green-500/15",
             });
         } catch (error) {
             console.log(error);
@@ -103,11 +123,11 @@ function MediaUploader({ userId }: { userId: string }) {
                                 </h3>
                                 <div className="relative">
                                     <CldImage
-                                        width={500}
-                                        height={500}
+                                        width={image?.info?.width}
+                                        height={image?.info?.height}
                                         alt="Image"
                                         src={image?.info?.public_id}
-                                        sizes={"(max-width:767px) 100vw, 50vw"}
+                                        // sizes={"(max-width:767px) 100vw, 50vw"}
                                         placeholder={
                                             dataUrl as PlaceholderValue
                                         }
@@ -115,24 +135,34 @@ function MediaUploader({ userId }: { userId: string }) {
                                         {...transformationConfig}
                                     />
                                     <Button
-                                        className="absolute bottom-2 left-2"
+                                        className="absolute bottom-2 left-2 bg-blue-500/15 hover:bg-blue-500/"
                                         onClick={downloadHandler}
                                     >
-                                        Download
+                                        <ImageDown className="text-blue-500" />
                                     </Button>
                                 </div>
                             </div>
                         </div>
                     )}
+                    <AlertModal open={openModal} setOpen={setOpenModal} />
                     <div
                         className="w-full h-[20vh] flex flex-col items-center"
-                        onClick={() => open()}
+                        onClick={() => {
+                            if (creditBalance <= 0) {
+                                setOpenModal(true);
+                            } else {
+                                open();
+                            }
+                        }}
                     >
-                        <div className="flex items-center h-full w-full justify-center flex-col p-4 border max-w-md rounded-md">
-                            <Button>
-                                <Plus color="#fff" />
+                        <div className="flex items-center h-full w-full justify-center flex-col p-4 border border-dashed border-gray-300  max-w-md rounded-lg">
+                            <Button className="bg-blue-500/15">
+                                <Plus className="text-blue-500" />
                             </Button>
-                            <p className=""> Click here to upload image</p>
+                            <p className="text-sm mt-2">
+                                {" "}
+                                Click here to upload image
+                            </p>
                         </div>
                     </div>
                 </div>

@@ -1,20 +1,22 @@
-export const aspectRatioOptions = {
-    "1:1": {
-        aspectRatio: "1:1",
-        label: "Square (1:1)",
-        width: 1000,
-        height: 1000,
+export const creditFee = -1;
+
+export const plans = [
+    {
+        _id: 1,
+        name: "Free",
+        price: 0,
+        credits: 3,
     },
-    "3:4": {
-        aspectRatio: "3:4",
-        label: "Standard Portrait (3:4)",
-        width: 1000,
-        height: 1334,
+    {
+        _id: 2,
+        name: "Pro Package",
+        price: 99,
+        credits: 10,
     },
-    "9:16": {
-        aspectRatio: "9:16",
-        label: "Phone Portrait (9:16)",
-        width: 1000,
-        height: 1778,
+    {
+        _id: 3,
+        name: "Premium Package",
+        price: 199,
+        credits: 25,
     },
-};
+];

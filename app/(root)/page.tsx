@@ -2,13 +2,14 @@ import Slider from "@/components/Slider";
 import AnimatedGradientText from "@/components/ui/animationGradientText";
 import RetroGrid from "@/components/ui/retro-grid";
 import { cn } from "@/lib/utils";
-import { ChevronRight, Divide } from "lucide-react";
+import { ChevronRight } from "lucide-react";
 import MediaUploader from "@/components/MediaUploader";
 import { auth } from "@clerk/nextjs/server";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
+import { getUserById } from "@/lib/actions/user.actions";
 
-export default function Home() {
+export default async function Home() {
     const { userId } = auth();
     if (!userId) {
         return (
@@ -21,6 +22,8 @@ export default function Home() {
         );
     }
 
+    const user = await getUserById(userId);
+    console.log(user);
     return (
         <section className="container">
             <div className="md:mt-20 mb-5 text-2xl sm:text-3xl md:text-6xl font-bold flex gap-6 flex-col items-center justify-center">
@@ -44,10 +47,15 @@ export default function Home() {
                 <Slider />
             </div>
             <div className="h-[80vh] my-20">
-                <h2 className="font-semibold text-center text-2xl mb-10">
-                    Transform your Images
-                </h2>
-                <MediaUploader userId={userId} />
+                <div className="flex items-center justify-center my-10">
+                    <h2 className="text-center py-2 px-4 max-w-3xl md:text-4xl font-semibold">
+                        Transform your Images
+                    </h2>
+                </div>
+                <MediaUploader
+                    userId={userId}
+                    creditBalance={user.creditBalance}
+                />
             </div>
         </section>
     );
