@@ -39,7 +39,6 @@ declare type IImage = {
     updatedAt: Date;
 };
 
-// ====== TRANSACTION PARAMS
 declare type CheckoutTransactionParams = {
     plan: string;
     credits: number;

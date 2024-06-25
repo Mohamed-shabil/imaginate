@@ -11,17 +11,6 @@ import { addImage } from "@/lib/actions/image.actions";
 import { redirect } from "next/navigation";
 import { updateCredits } from "@/lib/actions/user.actions";
 import { creditFee } from "@/constants";
-import {
-    AlertDialog,
-    AlertDialogAction,
-    AlertDialogCancel,
-    AlertDialogContent,
-    AlertDialogDescription,
-    AlertDialogFooter,
-    AlertDialogHeader,
-    AlertDialogTitle,
-    AlertDialogTrigger,
-} from "@/components/ui/alert-dialog";
 import AlertModal from "./AlertModal";
 
 function MediaUploader({
