@@ -43,9 +43,9 @@ export default async function MyImages() {
                     </h2>
                 </div>
             ) : (
-                <div className="flex flex-col items-center justify-start gap-3 ">
-                    {images.map((image) => (
-                        <ImageCard image={image} />
+                <div className="flex flex-col items-center justify-start gap-3">
+                    {images.map((image, index) => (
+                        <ImageCard image={image} key={index} />
                     ))}
                 </div>
             )}
