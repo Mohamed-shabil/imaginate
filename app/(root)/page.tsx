@@ -1,7 +1,7 @@
 import Slider from "@/components/Slider";
 import AnimatedGradientText from "@/components/ui/animationGradientText";
 import RetroGrid from "@/components/ui/retro-grid";
-import { cn } from "@/lib/utils";
+import { cn, download } from "@/lib/utils";
 import { ChevronRight } from "lucide-react";
 import MediaUploader from "@/components/MediaUploader";
 import { auth } from "@clerk/nextjs/server";
@@ -21,7 +21,6 @@ export default async function Home() {
             </div>
         );
     }
-
     const user = await getUserById(userId);
     console.log(user);
     return (

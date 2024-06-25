@@ -10,6 +10,7 @@ export default async function MyImages() {
     if (!userId) redirect("/sign-up");
     const images = (await getUserImages(userId)) as IImage[];
     const user = await getUserById(userId);
+
     return (
         <section className="container h-[90vh]">
             <h2 className="font-semibold text-2xl my-10 ">
@@ -43,7 +44,7 @@ export default async function MyImages() {
                     </h2>
                 </div>
             ) : (
-                <div className="flex flex-col items-center justify-start gap-3">
+                <div className="flex items-center justify-start flex-wrap gap-5">
                     {images.map((image, index) => (
                         <ImageCard image={image} key={index} />
                     ))}

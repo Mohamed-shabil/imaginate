@@ -2,7 +2,7 @@
 import { CldImage, CldUploadWidget, getCldImageUrl } from "next-cloudinary";
 import { useToast } from "./ui/use-toast";
 import Image from "next/image";
-import { ImageDown, Plus } from "lucide-react";
+import { ImageDown, Loader2, Plus } from "lucide-react";
 import { dataUrl, download } from "@/lib/utils";
 import { PlaceholderValue } from "next/dist/shared/lib/get-img-props";
 import { useState } from "react";
@@ -39,6 +39,7 @@ function MediaUploader({
     };
     const onUploadSuccessHandler = async (result: any) => {
         setImage(result);
+
         console.log(result);
         const transformationURL = getCldImageUrl({
             width: result?.info?.width,
@@ -110,13 +111,14 @@ function MediaUploader({
                                 <h3 className="font-semibold text-xl">
                                     Transformed
                                 </h3>
+
                                 <div className="relative">
                                     <CldImage
                                         width={image?.info?.width}
                                         height={image?.info?.height}
                                         alt="Image"
                                         src={image?.info?.public_id}
-                                        // sizes={"(max-width:767px) 100vw, 50vw"}
+                                        sizes={"(max-width:767px) 100vw, 50vw"}
                                         placeholder={
                                             dataUrl as PlaceholderValue
                                         }
@@ -124,7 +126,7 @@ function MediaUploader({
                                         {...transformationConfig}
                                     />
                                     <Button
-                                        className="absolute bottom-2 left-2 bg-blue-500/15 hover:bg-blue-500/"
+                                        className="absolute bottom-2 left-2 bg-blue-500/15 hover:bg-blue-500 "
                                         onClick={downloadHandler}
                                     >
                                         <ImageDown className="text-blue-500" />
@@ -145,11 +147,10 @@ function MediaUploader({
                         }}
                     >
                         <div className="flex items-center h-full w-full justify-center flex-col p-4 border border-dashed border-gray-300  max-w-md rounded-lg">
-                            <Button className="bg-blue-500/15">
-                                <Plus className="text-blue-500" />
+                            <Button className="bg-blue-500/15 hover:bg-blue-500 group">
+                                <Plus className="text-blue-500 group-hover:text-white" />
                             </Button>
                             <p className="text-sm mt-2">
-                                {" "}
                                 Click here to upload image
                             </p>
                         </div>
